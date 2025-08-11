@@ -4,201 +4,186 @@
       "code": "/*\n@title common\n@by Nekorobi\n*/\n\nsetcpm(172/4)\nsamples('github:yaxu/clean-breaks')\nsamples({\n    'pat1': 'sounds/007_d__Drum_Beat_170bpm_-_DNBDRUMS_Zenhiser.wav',\n    'pat2': 'sounds/TS_VDNB_170_drum_two_step.wav',\n    'noise_crush': 'sounds/noise_crush.wav',\n  }, 'github:tsudatech/break_samples'\n);\n\nsamples({\n    'epiano': 'epiano/epiano_001.wav',\n    'epiano2': 'epiano/epiano_002.wav',\n    'chiptune': 'chiptune/chiptune_001.wav',\n    'crash': 'crash/PLX_ATE_cymbal_crash_clean.wav',\n    'rise': 'rise/05_Audiotent_-_UNF2_-_Noise_Rise.wav',\n  },'github:tsudatech/sound_samples'\n);\n\nsamples({\n    'tr909_bd': 'machines/RolandTR909/rolandtr909-bd/Bassdrum-01.wav',\n    'tr909_oh': 'machines/RolandTR909/rolandtr909-oh/Hat Open.wav',\n    'tr808_hh': 'machines/RolandTR808/rolandtr808-hh/CH.WAV',\n  },'github:geikha/tidal-drum-machines'\n);\n\nfunction generateVoicingsWithKey(voicings, key) {\n  return Object.fromEntries(\n    Object.entries(voicings).map(([name, intervals]) => [\n      name,\n      [intervals.map(n => n + key).join(' ')]\n    ])\n  );\n}\n\nconst key = 3;\nconst rawVoicings = {\n  '':        [-5, 0, 4, 7, 12],\n  'M7':      [-5, 0, 4, 7, 11],\n  'maj7':    [-5, 0, 4, 7, 11],\n  'maj7on9': [-5, 0, -10, 7, 11],\n  'm':       [-5, 0, 3, 7, -9],\n  'madd9':   [-5, 0, 2, 3, 10],\n  'm7':      [-5, 0, 3, 7, 10],\n  'm7_3':    [-5, 12, 3, 7, 10],\n  'm7_2':    [-5, 0, 3, -9, -2],\n  '7':       [-5, 0, 4, 7, 10],\n  '7_2':     [-5, 0, 4, -8, -2], // ルートは-5にしておく\n  '7sus4':   [-5, 0, 5, 7, 10],\n  'madd11':  [-5, 0, 3, 5, 7],\n  'sus4':    [-5, 0, 5, 7, 12],\n  'dim':     [-5, 0, 3, 6, 12],\n  'dim7':    [-5, 0, 3, 6, 9],\n  'maj9': [-5, 0, 4, 11, 14], // ルート,9th,3rd,7th（5度omit）\n  '9':    [-5, 0, 7, 10, 14], // ルート,9th,3rd,♭7（5度omit）\n  'm9':   [-5, 0, 3, 10, 14], // ルート,9th,♭3rd,♭7（5度omit）\n};\n\nconst chorus_after_2_Voicings = {\n  '':        [-5, 0, 4, 7, 12],\n  'M7':      [-5, 0, 4, 7, 11],\n  'maj7':    [-5, 0, 4, 7, 11],\n  'm':       [-5, 0, 3, 7, 10],\n  'madd9':   [-5, 0, 2, 3, 10],\n  'm7':      [-5, 0, 3, 7, 10],\n  '7':       [-5, 0, 4, 7, 10],\n  '7_4':     [-5, 0, 4, 2, 10],\n  '7_2':     [-5, 0, 4, -8, -2], // ルートは-5にしておく\n  '7_3':     [-5, 12, 4, 14, 10],\n  '7sus4':   [-5, 0, 5, 7, 10],\n  'madd11':  [-5, 0, 3, 5, 7],\n  'sus4':    [-5, 0, 5, 7, 12],\n  'dim':     [-5, 0, 3, 6, 12],\n  'dim7':    [-5, 0, 3, 6, 9],\n};\n\nconst c1_1_Voicings = {\n  '':        [-5, 0, 4, 7, 12],\n  'M7':      [-5, 0, 4, 7, 11],\n  'maj7':    [-5, 0, 4, 7, 11],\n  'm':       [-5, 0, 3, 7, 10],\n  'madd9':   [-5, 0, 2, 3, 10],\n  'm7':      [-5, 0, 3, 7, 10],\n  'm7_2':    [-5, 0, 3, -9, -2],\n  '7':       [-5, 0, 4, 7, 10],\n  '7_2':     [-5, 0, 4, -8, -2], // ルートは-5にしておく\n  '7sus4':   [-5, 0, 5, 7, 10],\n  'madd11':  [-5, 0, 3, 5, 7],\n  'sus4':    [-5, 0, 5, 7, 12],\n  'dim':     [-5, 0, 3, 6, 12],\n  'dim7':    [-5, 0, 3, 6, 9],\n};\n\nconst c1_2_Voicings = {\n  '':        [-5, 0, 4, 7, 12],\n  'M7':      [-5, 0, 4, 7, 11],\n  'maj7':    [-5, 0, 4, 7, 11],\n  'm':       [-5, 0, 3, 7, 10],\n  'madd9':   [-5, 0, 2, 3, 10],\n  'm7':      [-5, 0, 3, 7, 10],\n  'm7_2':    [-5, 0, 3, -9, -2],\n  'm7add11': [-5, 0, 3, 5, 10],\n  '7':       [-5, 0, 4, 7, 10],\n  '7_2':     [-5, 0, 4, -8, -2], // ルートは-5にしておく\n  '7sus4':   [-5, 0, 5, 7, 10],\n  'madd11':  [-5, 0, 3, 5, 7],\n  'sus4':    [-5, 0, 5, 7, 12],\n  'dim':     [-5, 0, 3, 6, 12],\n  'dim7':    [-5, 0, 3, 6, 9],\n  'm9':      [-5, 0, 4, 5, 10], // ルート,9th,♭3rd,♭7（5度omit）\n};\n\nconst c2_1_Voicings = {\n  '':        [-5, 0, 4, 7, 12],\n  'M7':      [-5, 0, 4, 7, 11],\n  'maj7':    [-5, 0, 4, 7, 11],\n  'm':       [-5, 0, 3, 7, 10],\n  'm_2':     [-5, 0, 3, 7, -2],\n  'madd9':   [-5, 0, 2, 3, 10],\n  'm7':      [-5, 0, 3, 7, 10],\n  'm7_2':    [-5, 0, 3, -9, -2],\n  '7':       [-5, 0, 4, 7, 10],\n  'aug7':    [-4, 0, 4, 8, 10],\n  '7_2':     [-5, 0, 4, -8, -2], // ルートは-5にしておく\n  '7sus4':   [-5, 0, 5, 7, 10],\n  'madd11':  [-5, 0, 3, 5, 12],\n  'sus4':    [-5, 0, 5, 7, 12],\n  'dim':     [-5, 0, 3, 6, 12],\n  'dim7':    [-5, 0, 3, 6, 9],\n  'm7b5':    [-5, 0, 3, 6, 10]\n};\n\nconst c2_2_Voicings = {\n  '':        [-5, 0, 4, 7, 12],\n  'M7':      [-5, 0, 4, 7, 11],\n  'maj7':    [-5, 0, 4, 7, 11],\n  'm':       [-5, 0, 3, 7, 10],\n  'm_2':     [-5, 0, 3, 7, -2],\n  'madd9':   [-5, 0, 2, 3, 10],\n  'm7':      [-5, 0, 3, 7, 10],\n  'm7_2':    [-5, 0, 3, -9, -2],\n  '7':       [-5, 0, 4, 7, 10],\n  'aug7':    [-4, 0, 4, 8, 10],\n  '7_2':     [-5, 0, 4, -8, -2], // ルートは-5にしておく\n  '7sus4':   [-5, 0, 5, 7, 10],\n  'madd11':  [-5, 0, 3, 5, 12],\n  'sus4':    [-5, 0, 5, 7, 12],\n  'dim':     [-5, 0, 3, 6, 12],\n  'dim7':    [-5, 0, 3, 6, 9],\n};\n\naddVoicings('test', generateVoicingsWithKey(rawVoicings, key));\naddVoicings('chorus_after_2', generateVoicingsWithKey(chorus_after_2_Voicings, key));\naddVoicings('C1_1', generateVoicingsWithKey(c1_1_Voicings, key));\naddVoicings('C1_2', generateVoicingsWithKey(c1_2_Voicings, key));\naddVoicings('C2_1', generateVoicingsWithKey(c2_1_Voicings, key));\naddVoicings('C2_2', generateVoicingsWithKey(c2_2_Voicings, key));\n\n// chords\nlet dict = \"test\"\nfunction chords(pattern, chrd) {\n  chrd = chrd || chord\n  return n(pattern).mode(mode).chord(chrd).dict(dict).voicing()\n}\n\nfunction bd(pattern, intro = false) {\n  return stack(\n    s(pattern).bank(\"tr909\").gain(intro ? 0.35 : 0.55).shape(0.2)\n      .clip(.7)\n      .hpf(140)\n      .compressor(\"-17:20:10:0.002:0.03\"),\n    s(pattern).bank(\"tr909\").gain(0.02).shape(0.5)\n      .clip(.7)\n      .hpf(2000)\n      .compressor(\"-17:20:10:0.002:0.03\")\n  )\n}\n\nfunction hh(pattern) {\n  return s(pattern).bank(\"tr808\")\n    .legato(0.2)\n    .gain(1.7)\n    .hpf(6600)\n}\n\nfunction oh(pattern) {\n  return s(pattern).bank(\"tr909\").legato(0.25).gain(0.5).hpf(5000)\n}\n\nfunction backing(add, gain){\n  return chords(\"<0,1,3,4>\".layer(x => x.add(add)).struct(\"<[x - - x] [- - x -]>*4\")\n    .gain(gain).clip(.4), chord2)\n  .room(.05)\n  .delay(.2)\n  .pan(choose(\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(.3)\n  .hpf(600)\n}\n\nfunction noise() {\n  return s(\"white\").gain(0.05).room(0.6)\n}\n\nfunction rise() {\n  return n(\"<- 0>/4\").s(\"rise\").gain(0.3).room(0.6).clip(0.999).hpf(1500)\n}\n\nsilence\n",
       "created_at": 1753186768924,
       "id": "ElPVKJJ1iG2p",
-      "collection": "user",
-      "order": 0
+      "collection": "user"
     },
     "qtIS8yLZmEaP": {
       "code": "/*\n@title intro_1\n@by Nekorobi\n*/\n\nconst mode = \"<root:C3 root:G3 root:F3 <root:E3 root:A3>>\"\nconst chord = \"<Cmaj7 <G7 G9> <Fmaj7 Fmaj9> <Em7 Am7>>\"\nconst chord2 = \"<Cmaj7 <G7 G9> <Fmaj7 Fmaj9> <Em7 Am7>>\"\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")).struct(\"[- x] - [- - x x] [- [x x]]\").clip(.65))\n  .s(\"epiano\").gain(0.4).shape(0.3).room(.2)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.2).room(0.15).echo(3, 1/4, .4).velocity(0.22).delay(.15)\n  .pan(rand)\n\n$: bd(\"<-!28 [bd bd]!2 [bd!4] [bd - bd bd]>*4\", true)\n$: chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")))\n  .s(\"sine\").gain(0.22).room(0.3).shape(0.3).room(.5)\n",
       "created_at": 1753186768924,
       "id": "ElPVKJJ1iG2p",
-      "collection": "user",
-      "order": 1
+      "collection": "user"
     },
     "FWaMT6c27KUl": {
       "code": "/*\n@title intro_2\n@by Nekorobi\n*/\n\nconst mode = \"<root:C3 root:G3 root:F3 <root:E3 root:A3>>\"\nconst chord = \"<Cmaj7 <G7 G9> <Fmaj7 Fmaj9> <Em7 Am7>>\"\nconst chord2 = \"<Cmaj7 <G7 G9> <Fmaj7 Fmaj9> <Em7 Am7>>\"\n\n$: rise()\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")).struct(\"[- x] - [- - x x] [- [x x]]\").clip(.65))\n  .s(\"epiano\").gain(0.4).shape(0.3).room(.2)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.2).room(0.15).echo(3, 1/4, .4).velocity(0.22).delay(.15)\n  .pan(rand)\n\n$: cat(\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n  bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\", true),\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n  bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\", true),\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n  bd(\"<[bd bd] [bd - - bd] [bd!4] [bd - bd!2]>*4\", true),\n)\n\n$: chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")))\n  .s(\"sine\").gain(0.22).room(0.3).shape(0.3).room(.5)\n",
       "created_at": 1753188294677,
       "id": "FWaMT6c27KUl",
-      "collection": "user",
-      "order": 2
+      "collection": "user"
     },
     "vjk2XQ9EN0rt": {
       "code": "/*\n@title A_1\n@by Nekorobi\n*/\n\nconst mode = \"<root:C3 root:G3 root:F3 <root:E3 root:A3>>\"\nconst chord = \"<Cmaj7 G7 Fmaj7 <Em7 Am7>>\"\nconst chord2 = \"<Cmaj7 G7 Fmaj7 <Em7 Am7>>\"\n\n$: noise()\n$: n(\"<0>/8\").s(\"crash\").gain(0.3).room(0.6)\n\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-5,-10,-15\")).struct(\"<x x - - - - - x>*8\"))\n  .s(\"chiptune\").gain(.15).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<0,1,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.3).echo(3, 1/4, .4)\n  .velocity(.05)\n  .delay(.3)\n  .pan(rand)\n  .hpf(300)\n\n$: chords(choose(\"4\",\"7\",\"1\",\"8\").struct(\"<- - - - x x - x>*16\").layer(x => x.add(\"0,5\")).clip(.4))\n  .s(\"triangle\").gain(.007).room(0.1)\n  .pan(choose(\"0.2\",\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(0.99)\n  .hpf(900)\n\n$: chords(\"<5 1 12 3>*8\".struct(\"<- [- x] [x [x x]] [x [x x]]>*4\")\n    .velocity(0.09)\n    .when(\"<0 0 0 [1 [0 0]]>*4\", x => x.velocity(0.03))\n    .layer(x => x.add(\"0\")).clip(.35), chord2)\n  .s(\"triangle\").room(0.1)\n  .shape(0.99)\n  .pan(rand)\n  .hpf(700)\n\n$: chords(\"<[0 1]!4 <[0 2] [2 4]>!4>*4\".layer(x => x.add(\"-5\")))\n  .gain(0.7).clip(.65).shape(0.3).room(.5)\n\n$: chords(\"<0,1,2,3>\".layer(x => x.add(\"0,5\")))\n  .s(\"sine\").gain(0.1).room(0.3).shape(0.3).room(.5)\n\n$: stack(\n  bd(\"<<bd!3 [bd bd]> bd [bd - - bd] [- <bd!3 [bd bd]>]>*4\"),\n  cat(\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh - hh - hh - [hh hh]>*8\"),\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh - hh - hh - [- hh]>*8\"),\n  ),\n  oh(\"<-!63 oh>*8\"),\n  cat(\n    silence,\n    silence,\n    silence,\n    silence,\n    silence,\n    silence,\n    silence,\n    s(\"pat1\").slice(16, \"<- [3 [3 3]*2] - 1>*4\")\n      .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n      .gain(.7).shape(0.3).legato(0.7)\n      .hpf(7000)\n    ,\n  ),\n\n  // subbass\n  chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")).struct(\"x*8\").sometimesBy(.3, x=>x.ply(2)).clip(.6), chord)\n  .s(\"sine\").gain(0.08).room(0.3).shape(0.8).room(.5).bpf(400)\n)",
       "created_at": 1752857480371,
       "id": "vjk2XQ9EN0rt",
-      "collection": "user",
-      "order": 3
+      "collection": "user"
     },
     "mGtrtX7wcE1u": {
       "code": "/*\n@title A_2\n@by Nekorobi\n*/\n\nconst mode = \"<root:C3 root:G3 root:F3 <root:E3 root:A3>>\"\nconst chord = \"<Cmaj7 G7 Fmaj7 <Em7 Am7>>\"\nconst chord2 = \"<Cmaj7 G7 Fmaj7 <Em7 Am7>>\"\n\n$: noise()\n\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-5,-10,-15\")).struct(\"<x x - - - - - x>*8\"))\n  .s(\"chiptune\").gain(.15).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<0,1,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.3).echo(3, 1/4, .4)\n  .velocity(.05)\n  .delay(.3)\n  .pan(rand)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")).struct(\"<[- x] - - ->*4\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.8).velocity(0.07).pan(rand)\n  .hpf(550)\n\n$: chords(choose(\"4\",\"7\",\"1\",\"8\").struct(\"<- - - - x x - x>*16\").layer(x => x.add(\"0,5\")).clip(.4))\n  .s(\"triangle\").gain(.007).room(0.1)\n  .pan(choose(\"0.2\",\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(0.99)\n  .hpf(900)\n\n$: chords(\"<5 1 12 3>*8\".struct(\"<- [- x] [x [x x]] [x [x x]]>*4\")\n    .velocity(0.09)\n    .when(\"<0 0 0 [1 [0 0]]>*4\", x => x.velocity(0.03))\n    .layer(x => x.add(\"0\")).clip(.35), chord2)\n  .s(\"triangle\").room(0.1)\n  .shape(0.99)\n  .pan(rand)\n  .hpf(700)\n\n$: chords(\"<[0 1]!4 <[0 2] [2 4]>!4>*4\".layer(x => x.add(\"-5\")))\n  .gain(0.7).clip(.65).shape(0.3).room(.5)\n\n$: chords(\"<0,1,2,3>\".layer(x => x.add(\"0,5\")))\n  .s(\"sine\").gain(0.1).room(0.3).shape(0.3).room(.5)\n\n$: stack(\n  cat(\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<[bd bd] [bd - bd bd] [bd!4] [bd - bd bd]>*4\"),\n  ),\n  cat(\n    oh(\"<[- oh] [- - - -] [- -] [- -]>*4\"),\n    silence,\n    silence,\n    silence,\n    oh(\"<[- -] [- - - -] [- oh] [- oh]>*4\"),\n    oh(\"<[- -] [- - - -] [- oh] [- oh]>*4\"),\n    oh(\"<[- -] [- - - -] [- oh] [- oh]>*4\"),\n    oh(\"<[- -] [- - - -] [- oh] [- oh]>*4\"),\n  ),\n  hh(\"<- hh>*8\"),\n  s(\"pat1\").slice(16, \"<- [3 [3 3]*2] - 1>*4\")\n    .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n    .gain(.7).shape(0.3).legato(0.7)\n    .hpf(7000),\n\n  // subbass\n  chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")).struct(\"x*8\").sometimesBy(.3, x=>x.ply(2)).clip(.6), chord)\n  .s(\"sine\").gain(0.08).room(0.3).shape(0.8).room(.5).bpf(400)\n)",
       "created_at": 1752916494870,
       "id": "mGtrtX7wcE1u",
-      "collection": "user",
-      "order": 4
+      "collection": "user"
     },
     "LJIKhiFiIDkB": {
       "code": "/*\n@title B_1\n@by Nekorobi\n*/\n\nconst mode = \"<<root:d3 root:f3> root:g3 root:a3 <root:a3 root:e3>>\"\nconst chord = \"<<D7sus4 Fmaj7on9> G7 <Em7 Am9> <Amadd11 Em7>>\"\nconst chord2 = \"<<D7sus4 Fmaj7on9> G7 <Em7 Am9> <Amadd11 Em7>>\"\n\n$: noise()\n\n$: chords(\"<0,1,4,5>\".layer(x => x.add(\"5\")).struct(\"<[x - - x] [- - x -]>*4\").gain(1.5).clip(.4), chord2)\n  .room(.2)\n  .pan(choose(\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(.2)\n  .hpf(800)\n\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-5,-10,-15\")).struct(\"<x x - - - - - x>*8\"))\n  .s(\"chiptune\").gain(.15).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<0,1,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.3).echo(3, 1/4, .4)\n  .velocity(.05)\n  .delay(.3)\n  .pan(rand)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")).struct(\"<[- x] - - ->*4\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.8).velocity(0.07).pan(rand)\n  .hpf(550)\n\n$: chords(choose(\"1\",\"7\",\"3\",\"8\").struct(\"<- - - - x x x x>*16\").layer(x => x.add(\"0,5\")).clip(.4))\n  .s(\"triangle\").gain(.007).room(0.1)\n  .pan(choose(\"0.2\",\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(0.99)\n  .hpf(900)\n\n$: chords(\"<5 1 12 3>*8\".struct(\"<- [- x] [x [x x]] [x [x x]]>*4\")\n    .velocity(0.09)\n    .when(\"<0 0 0 [1 [0 0]]>*4\", x => x.velocity(0.03))\n    .layer(x => x.add(\"0\")).clip(.35), chord2)\n  .s(\"triangle\").room(0.1)\n  .shape(0.99)\n  .pan(rand)\n  .hpf(700)\n\n$: chords(\"<[0 1]!4 <[0 2] [2 4]>!4>*4\".layer(x => x.add(\"-5\")))\n  .gain(0.7).clip(.65).shape(0.3).room(.5)\n\n$: chords(\"<0,1,2,3>\".layer(x => x.add(\"0\")))\n  .s(\"sine\").gain(0.15).room(0.3).shape(0.3).room(.5)\n\n$: stack(\n  slowcatPrime(\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] [bd - - bd] [bd!4] [bd - bd bd]>*4\"),\n  ),  \n  cat(\n    silence,\n    silence,\n    silence,\n    silence,\n    oh(\"<[- -] [- - - -] [- oh] [- oh]>*4\"),\n    oh(\"<[- -] [- - - -] [- oh] [- oh]>*4\"),\n    oh(\"<[- -] [- - - -] [- oh] [- oh]>*4\"),\n    oh(\"<[- -] [- - - -] [- oh] [- oh]>*4\"),\n  ),\n  hh(\"<- hh>*8\"),\n  s(\"pat1\").slice(16, \"<- [3 [3 3]*2] - 1>*4\")\n    .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n    .gain(.7).shape(0.3).legato(0.7)\n    .hpf(7000),\n\n  // subbass\n  chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")).struct(\"x*8\").sometimesBy(.3, x=>x.ply(2)).clip(.6), chord)\n  .s(\"sine\").gain(0.08).room(0.3).shape(0.8).room(.5).bpf(400)\n)\n\n",
       "created_at": 1752801450137,
       "id": "LJIKhiFiIDkB",
-      "collection": "user",
-      "order": 5
+      "collection": "user"
     },
     "1wsQ3sQlT0KN": {
       "code": "/*\n@title B_2\n@by Nekorobi\n*/\n\nconst mode = \"<<root:d3 root:f3> root:g3 root:a3 <root:a3 root:c4>>\"\nconst chord = \"<<D7sus4 Fmaj7on9> G7 <Em7 Am9> <Amadd11 Cmaj7>>\"\nconst chord2 = \"<<D7sus4 Fmaj7on9> G7 <Em7 Am9> <Amadd11 Cmaj7>>\"\n\n$: noise()\n$: rise()\n\n$: chords(\"<0,1,4,5>\".layer(x => x.add(\"5\")).struct(\"<[x - - x] [- - x -]>*4\").gain(1.5).clip(.4), chord2)\n  .room(.2)\n  .pan(choose(\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(.2)\n  .hpf(800)\n\n$: chords(\"<0,1,3,4>\".layer(x => x.add(\"5,10\")).struct(\"<[x - - x] [- - x -]>*4\").gain(.15).clip(.5), chord2)\n  .s(\"epiano2\")\n  .room(.3)\n  .pan(choose(\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .hpf(2000)\n  .shape(.1)\n\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-5,-10,-15\")).struct(\"<x x - - - - - x>*8\"))\n  .s(\"chiptune\").gain(.15).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<0,1,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.3).echo(3, 1/4, .4)\n  .velocity(.05)\n  .delay(.3)\n  .pan(rand)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")).struct(\"<[- x] - - ->*4\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.8).velocity(0.07).pan(rand)\n  .hpf(550)\n\n$: chords(choose(\"1\",\"7\",\"3\",\"8\").struct(\"<- - - - x x x x>*16\").layer(x => x.add(\"0,5\")).clip(.4))\n  .s(\"triangle\").gain(.007).room(0.1)\n  .pan(choose(\"0.2\",\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(0.99)\n  .hpf(900)\n\n$: chords(\"<5 1 12 3>*8\".struct(\"<- [- x] [x [x x]] [x [x x]]>*4\")\n    .velocity(0.09)\n    .when(\"<0 0 0 [1 [0 0]]>*4\", x => x.velocity(0.03))\n    .layer(x => x.add(\"0\")).clip(.35), chord2)\n  .s(\"triangle\").room(0.1)\n  .shape(0.99)\n  .pan(rand)\n  .hpf(700)\n\n$: chords(\"<[0 1]!4 <[0 2] [2 4]>!4>*4\".layer(x => x.add(\"-5\")))\n  .gain(0.7).clip(.65).shape(0.3).room(.5)\n\n$: chords(\"<0,1,2,3>\".layer(x => x.add(\"0\")))\n  .s(\"sine\").gain(0.15).room(0.3).shape(0.3).room(.5)\n\n$: stack(\n  cat(\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<[bd bd]!4>*4\"),\n    bd(\"<[bd bd] [bd - bd bd] [bd!4]!2>*4\"),\n  ),\n  cat(\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh>*8\"),\n    hh(\"<- hh>*8\"),\n    oh(\"<- oh>*8\"),\n    oh(\"<- oh>*8\"),\n    oh(\"<- oh>*8\"),\n    oh(\"<- oh>*8\"),\n  ),\n  s(\"pat1\").slice(16, \"<- [3 [3 3]*2] - 1>*4\")\n    .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n    .gain(.7).shape(0.3).legato(0.7)\n    .hpf(7000),\n\n  // subbass\n  chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")).struct(\"x*8\").sometimesBy(.3, x=>x.ply(2)).clip(.6), chord)\n  .s(\"sine\").gain(0.08).room(0.3).shape(0.8).room(.5).bpf(400)\n)",
       "created_at": 1752856732367,
       "id": "1wsQ3sQlT0KN",
-      "collection": "user",
-      "order": 6
+      "collection": "user"
     },
     "7xeDaJ5IVrYM": {
       "code": "/*\n@title chorus\n@by Nekorobi\n*/\n\nconst mode = \"<root:F3 root:E3 root:A3 [root:G3 <root:C4 root:A3>]>\"\nconst chord = \"<FM7 E7 Amadd9 [Gm7 <C7_2 A7>]>\"\n\n$: noise()\n$: rise()\n$: n(\"<0>/8\".freq(50)).s(\"crash\").gain(0.5).room(0.6)\n\n$: chords(\"<[0 0] [1 [6 6]] [1@2 3 4] [3 5 6 7]>*4\".layer(x => x.add(\"-5,-15,0,5\"))\n  .sometimesBy(.2, x => x.ply(1)))\n  .s(\"epiano2\").gain(0.2).room(0.2).release(0.01)\n  .clip(choose(\"0.35\",\"0.3\")).room(.2).delay(.3).pan(rand)\n  .hpf(200)\n  .shape(.2)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-10,-5,0\")))\n  .struct(\"x x [x@2 - x] [- [x]]\").clip(.85)\n  .s(\"epiano\").gain(0.45).shape(0.3).room(.4).size(2)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")))\n  .struct(\"x x [x@2 - x] [- [x]]\").clip(.85)\n  .s(\"epiano2\").gain(0.2).shape(0.35).room(.3).size(2)\n\n$: chords(\"<0,1,2,3>\".layer(x => x.add(\"0\")))\n  .s(\"sine\").gain(0.4).room(0.3).shape(0.3).room(.5)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.3).echo(3, 1/4, .4)\n  .velocity(.03)\n  .delay(.3)\n  .pan(rand)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"[- x] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.8).velocity(0.05).pan(rand)\n  .hpf(550)\n\n$: chords(choose(\"0\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-5,-10\")).struct(\"x!7 [x x]\").clip(.7))\n  .degradeBy(.3)\n  .s(\"chiptune\").gain(.2).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<[0 1]!4 <[0 2] [2 4]>!4>*4\".layer(x => x.add(\"-5,0\")))\n  .gain(0.8).clip(.65).shape(0.3).room(.5)\n\n$: chords(\"<0,1,2,3,4>\".add(-15).layer(x => x.add(\"0,5\")))\n  .struct(\"~ ~ x ~ x ~ x x ~ ~ x x ~ x x x\")\n  .degradeBy(.35)\n  .s(\"chiptune\")\n  .velocity(choose(0.7, 0.9))\n  .shape(0.3)\n  .room(0.3)\n  .release(0.04)\n  .delay(0.2)\n  .decay(choose(0.1, 0.13))\n  .gain(.4)\n  .legato(0.7)\n\n// rhythm\n$: stack(\n  s(\"pat2\").slice(16, \"<- 1>*4\").velocity(0.4).gain(.2).shape(0.9).legato(0.7).bpf(4000).room(.2),\n  s(\"pat1\").slice(16, \"<- [3 [3 3]*2] - 1>*4\")\n    .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n    .gain(.7).shape(0.3).legato(0.7)\n    .hpf(7000),\n)\n\n$: bd(\"<<bd!3 [bd bd]> bd [bd - - bd] [- <bd!3 [bd bd]>]>*4\")\n$: oh(\"<- oh>*8\")\n\n",
       "created_at": 1752302489720,
       "id": "7xeDaJ5IVrYM",
-      "collection": "user",
-      "order": 7
+      "collection": "user"
     },
     "002H3fjOLzCK": {
       "code": "/*\n@title chorus after_1\n@by Nekorobi\n*/\n\nconst mode = \"<root:F3 root:E3 root:A3 [root:G3 <root:C4 root:A3>]>\"\nconst chord = \"<FM7 E7 Amadd9 [Gm7 <C7_2 A7>]>\"\n\n$: n(\"<0>/8\".freq(50)).s(\"crash\").gain(0.4).room(0.6)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")).struct(\"[- x] - [- - x x] [- [x x]]\").clip(.65))\n  .s(\"epiano\").gain(0.4).shape(0.3).room(.2)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.2).room(0.15).echo(3, 1/4, .4).velocity(0.22).delay(.15)\n  .pan(rand)\n\n$: bd(\"<-!28 [bd bd]!2 [bd!4] [bd - bd bd]>*4\", true)\n\n$: chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0,5\")).sometimesBy(.3, x=>x.ply(choose(2,4))).clip(choose(.75,.5)))\n  .s(\"sine\").gain(0.14).room(0.3).shape(0.3).room(.2)\n  .hpf(200)\n",
       "created_at": 1752323796887,
       "id": "002H3fjOLzCK",
-      "collection": "user",
-      "order": 8
+      "collection": "user"
     },
     "iZ5We9gvfCvI": {
       "code": "/*\n@title chorus after_2\n@by Nekorobi\n*/\n\ndict = \"chorus_after_2\"\nconst mode = \"<root:F3 root:E3 root:A3 [<root:F3 root:A3> <root:C4 root:E3>]>\"\nconst chord = \"<FM7 E7 Amadd9 [<Fmaj7 A7_4> <C7_2 E7_3>]>\"\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")).struct(\"[- x] - [- - x x] [- [x x]]\").clip(.65))\n  .s(\"epiano\").gain(0.4).shape(0.3).room(.2)\n  .hpf(300)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"[x -] - [- < - - - x>] -\").clip(.7))\n  .s(\"epiano2\").shape(0.2).room(0.15).echo(3, 1/4, .4).velocity(0.22).delay(.15)\n  .pan(rand)\n\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-5,-10\")).struct(\"x!4 - x - [x x]\").clip(.65))\n  .degradeBy(.1)\n  .s(\"chiptune\").gain(.1).room(0.2).shape(0.8).pan(rand)\n  \n$: cat(\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\", true),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\", true),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\", true),\n    bd(\"<[bd bd] [bd - - bd] [bd!4] [bd - bd!2]>*4\", true),\n  )\n\n$: cat(\n    silence,\n    silence,\n    silence,\n    silence,\n    s(\"<- hh>*8\").bank(\"tr808\").legato(0.2).gain(1.7),\n    s(\"<- hh>*8\").bank(\"tr808\").legato(0.2).gain(1.7),\n    s(\"<- hh>*8\").bank(\"tr808\").legato(0.2).gain(1.7),\n    s(\"<- hh>*8\").bank(\"tr808\").legato(0.2).gain(1.7),\n  )\n  \n// subbass\n$: chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0,5\")).sometimesBy(.3, x=>x.ply(choose(2,4))).clip(choose(.75,.5)))\n  .s(\"sine\").gain(0.14).room(0.3).shape(0.3).room(.2)\n  .hpf(200)\n",
       "created_at": 1752859346919,
       "id": "iZ5We9gvfCvI",
-      "collection": "user",
-      "order": 9
+      "collection": "user"
     },
     "2bPxylTNNcGn": {
       "code": "/*\n@title C1_1\n@by Nekorobi\n*/\n\ndict = \"C1_1\"\nconst mode = \"<[root:a4@3 root:d4] root:d4 [root:g4@3 root:c4] root:c4>*2\"\nconst chord = \"<[Am7@3 Dm7] - [G7@3 Cmaj7] ->*2\"\nconst chord2 = \"<[Am7@3 Dm7] Dm7 [G7@3 Cmaj7] Cmaj7>*2\"\n\n$: n(\"<0>/8\".freq(50)).s(\"crash\").gain(0.2).room(0.6)\n\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-20,-10,-15\")).struct(\"<x x - ->*8\"))\n  .s(\"chiptune\").gain(.15).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"<[- x] ->*4\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.7).velocity(0.08).pan(rand)\n  .hpf(550)\n\n$: chords(choose(\"1\",\"6\",\"4\",\"8\",\"5\").struct(\"<- x - x x - x x>*16\").layer(x => x.add(\"0,-5\")).clip(.5))\n  .s(\"triangle\").gain(.008).room(0.1)\n  .pan(choose(\"0.2\",\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(0.99)\n  .hpf(900)\n\nfunction tmp(pat, struct) {\n  return chords(pat.struct(struct)\n    .velocity(0.03)\n    .when(\"<0 0 0 [1 [0 0]]>*4\", x => x.velocity(0.01))\n    .layer(x => x.add(\"0\")).clip(.3), chord2)\n  .s(\"triangle\").room(0.1)\n  .shape(0.99)\n  .pan(rand)\n  .hpf(700)\n}\n$: slowcatPrime(\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 4 3>*8\", \"<- [[- x] [x x]] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [- [x x]] [[x x] [[x x] x]]>*4\"),\n  tmp(\"<5 1 4 3>*8\", \"<- [[- x] [x x]] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3 2 3 4 7>*8\", \"<- [- x] [x [x x]] [[x x] [x x]]>*4\"),\n)\n\n$: chords(\"<[1 3]!4 <[0 2] [2 4]>!4>*4\".layer(x => x.add(\"-10\")), chord2)\n  .gain(1.2).clip(.5).shape(0.3).room(.1)\n  \n$: stack(\n  bd(\"<bd - [- - - -] [bd - - bd]>*4\"),\n  oh(\"<[- -] [- -] [- oh] [- oh]>*4\"),\n  s(\"pat1\").slice(16, \"<- [3 [3 3]*2] 2 3 [- - [6!2] [3 3]] 2 [[2 2] -] [- - 2 -]>*4\")\n    .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n    .when(\"<- [0 [0 0]*2] 1 0 [- - [1!2] [0 0]] 1 [[1!2] -] [- - 1!2]>*4\", x=>x.velocity(0.55).clip(.7))\n    .when(\"<- [1 [1 1]*2] 0 1 [- - [0!2] [1 1]] 0 [[0!2] -] [- - 0!2]>*4\", x=>x.hpf(7000))\n    .gain(.8).shape(0.3).legato(0.7).room(.3),\n)\n\n$: chords(\"<0,3>*4\".layer(x => x.add(\"-10\")), chord2)\n  .s(\"sine\").gain(0.25).room(0.3).shape(0.3).room(.5)",
       "created_at": 1752723321452,
       "id": "2bPxylTNNcGn",
-      "collection": "user",
-      "order": 10
+      "collection": "user"
     },
     "uQbdACYBUKNF": {
       "code": "/*\n@title C1_2\n@by Nekorobi\n*/\n\ndict = \"C1_2\"\nconst mode = \"<[root:a4@3 root:d4] root:d4 [root:g4@3 root:c4] <root:c4!3 root:e4>>*2\"\nconst chord = \"<[Am7@3 Dm7] - [G7@3 Cmaj7] ->*2\"\nconst chord2 = \"<[Am7@3 Dm7] Dm7 [G7@3 Cmaj7] <Cmaj7!3 Em7add11>>*2\"\n\n$: noise()\n$: rise()\n$: n(\"<0>/8\".freq(50)).s(\"crash\").gain(0.2).room(0.6)\n\n$: chords(\"<0,1,3,4>\".layer(x => x.add(\"-5,0,5\")).struct(\"<[x - - x] [- - x -]>*4\").gain(.6).clip(.4), chord2)\n  .room(.1)\n  .pan(choose(\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(.3)\n  .hpf(600)\n\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-20,-10,-15\")).struct(\"<x x - ->*8\"))\n  .s(\"chiptune\").gain(.15).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"<[- x] ->*4\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.7).velocity(0.08).pan(rand)\n  .hpf(550)\n\n$: chords(choose(\"1\",\"6\",\"4\",\"8\",\"5\").struct(\"<- x - x x - x x>*16\").layer(x => x.add(\"0,-5\")).clip(.5))\n  .s(\"triangle\").gain(.008).room(0.1)\n  .pan(choose(\"0.2\",\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(0.99)\n  .hpf(900)\n\nfunction tmp(pat, struct) {\n  return chords(pat.struct(struct)\n    .velocity(0.03)\n    .when(\"<0 0 0 [1 [0 0]]>*4\", x => x.velocity(0.01))\n    .layer(x => x.add(\"0\")).clip(.3), chord2)\n  .s(\"triangle\").room(0.1)\n  .shape(0.992)\n  .pan(rand)\n  .hpf(700)\n}\n$: slowcatPrime(\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 4 3>*8\", \"<- [[- x] [x x]] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 12 3>*8\", \"<- [- x] [- [x x]] [[x x] [[x x] x]]>*4\"),\n  tmp(\"<5 1 4 3>*8\", \"<- [[- x] [x x]] [x [x x]] [x [x x]]>*4\"),\n  tmp(\"<5 1 - 3>*8\", \"<- [- x] [x [x x]] [x [x x]]>*4\"),\n)\n$: chords(\"<[1 3]!4 <[0 2] [2 4]>!4>*4\".layer(x => x.add(\"-10\")), chord2)\n  .gain(1.3).clip(.5).shape(0.3).room(.1)\n\n$: stack(\n  cat(\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] [bd - - bd] [bd!4] [bd - bd!2]>*4\"),\n  ),\n\n  oh(\"<[- -] [- -] [- oh] [- oh]>*4\"),\n  s(\"pat1\").slice(16, \"<- [3 [3 3]*2] - 3 [- - [- -] [3 3]] - [[- -] -] [- - - -]>*4\")\n    .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n    .when(\"<- [0 [0 0]*2] 1 0 [- - [1!2] [0 0]] 1 [[1!2] -] [- - 1!2]>*4\", x=>x.velocity(0.55).clip(.7))\n    .when(\"<- [1 [1 1]*2] 0 1 [- - [0!2] [1 1]] 0 [[0!2] -] [- - 0!2]>*4\", x=>x.hpf(7000))\n    .gain(.8).shape(0.3).legato(0.7).room(.3),\n\n  // subbass\n  chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")).struct(\"x*8\").clip(.3).sometimesBy(.5, n=>n.ply(2)), chord)\n  .s(\"sine\").gain(0.15).shape(0.4).room(.2).hpf(200)\n)\n\n$: chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"-5\")), chord2)\n  .s(\"sine\").gain(0.17).room(0.3).shape(0.3).room(.5)\n$: chords(\"<0,3>*4\".layer(x => x.add(\"-10\")), chord2)\n  .s(\"sine\").gain(0.2).room(0.3).shape(0.3).room(.5)",
       "created_at": 1752769044915,
       "id": "uQbdACYBUKNF",
-      "collection": "user",
-      "order": 11
+      "collection": "user"
     },
     "qc7Bbzq--Qmj": {
       "code": "/*\n@title C2_1\n@by Nekorobi\n*/\n\ndict = \"C2_1\"\nconst mode = \"<root:e3 root:A3 root:g3 <root:c3 root:b3>>\"\nconst chord = \"<Em Am_2 G <Cmaj7 Bm7b5>>\"\nconst chord2 = \"<Em Am_2 G <Cmaj7 Bm7b5>>\"\n\n$: noise()\n$: n(\"<0>/8\".freq(50)).s(\"crash\").gain(0.4).room(0.6)\n\n$: backing(\"0,10\", 0.8)\n$: backing(\"5\", 0.15)\n\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-5,-10,-15\")).struct(\"<x x - ->*8\"))\n  .s(\"chiptune\").gain(.15).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"<[- x] ->*4\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.7).velocity(0.06).pan(rand)\n  .hpf(550)\n\n$: chords(choose(\"1\",\"7\",\"4\",\"8\").struct(\"<- - - - x x x x>*16\").layer(x => x.add(\"0,5\")).clip(.5))\n  .s(\"triangle\").gain(.006).room(0.1)\n  .pan(choose(\"0.2\",\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(0.99)\n  .hpf(900)\n\n$: chords(\"<5 1 12 3>*8\".struct(\"<- [- x] [x [x x]] [x [x x]]>*4\")\n    .velocity(0.06)\n    .when(\"<0 0 0 [1 [0 0]]>*4\", x => x.velocity(0.01))\n    .layer(x => x.add(\"0\")).clip(.35), chord2)\n  .s(\"triangle\").room(0.1)\n  .shape(0.99)\n  .pan(rand)\n  .hpf(700)\n\n$: chords(\"<[0 1]!4 <[0 2] [1 3]>!4>*4\".layer(x => x.add(\"-5\")))\n  .gain(1.4).clip(.5).shape(0.3).room(.3)\n\n$: chords(\"<0,1,2,3>\".layer(x => x.add(\"0\")))\n  .s(\"sine\").gain(0.2).room(0.3).shape(0.3).room(.5)\n  \n$: stack(\n  bd(\"<<bd!3 [bd bd]> bd [bd - - bd] [- <bd!3 [bd bd]>]>*4\"),\n  oh(\"<[- -] [- oh] [- -] [- oh]>*4\"),\n  oh(\"<- oh>*8\").clip(.1).gain(.5),\n  s(\"pat1\").slice(16, \"<- - [3 [3 3]*2] 1>*4\")\n  .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n  .gain(.7).shape(0.3).legato(0.7)\n  .hpf(7000),\n\n    // subbass\n  chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")).struct(\"x*8\").sometimesBy(.3, x=>x.ply(2)).clip(.6), chord)\n  .s(\"sine\").gain(0.08).room(0.3).shape(0.8).room(.5).bpf(400)\n)\n",
       "created_at": 1752860338621,
       "id": "qc7Bbzq--Qmj",
-      "collection": "user",
-      "order": 12
+      "collection": "user"
     },
     "_3OUgtA4R4X5": {
       "code": "/*\n@title C2_2\n@by Nekorobi\n*/\n\ndict = \"C2_2\"\nconst mode = \"<root:e3 <root:a3 root:f3> root:g3 <root:c3 root:c4>>\"\nconst chord = \"<Em <Am_2 Fmadd11> G Cmaj7>\"\nconst chord2 = \"<Em <Am_2 Fm> G Cmaj7>\"\n\n$: noise()\n$: rise()\n\n$: backing(\"0,10\", 0.8)\n$: backing(\"5\", 0.25)\n\n$: chords(\"<0,1,3,4>\".layer(x => x.add(\"0,10\")).struct(\"<[x - - x] [- - x -]>*4\").gain(.25).clip(.5), chord2).s(\"epiano2\").room(.1)\n$: chords(choose(\"5\",\"1\",\"7\",\"3\",\"4\").layer(x => x.add(\"-5,-10,-15\")).struct(\"<x x - ->*8\"))\n  .s(\"chiptune\").gain(.15).room(0.2).shape(0.8).pan(rand)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")).struct(\"<[- x] ->*4\").clip(.7))\n  .s(\"epiano2\").shape(0.8).room(.7).velocity(0.06).pan(rand)\n  .hpf(550)\n\n$: chords(choose(\"1\",\"7\",\"4\",\"8\").struct(\"<- - - - x x x x>*16\").layer(x => x.add(\"0,5\")).clip(.5))\n  .s(\"triangle\").gain(.006).room(0.1)\n  .pan(choose(\"0.2\",\"0.3\",\"0.4\",\"0.6\",\"0.7\"))\n  .shape(0.99)\n  .hpf(900)\n\n$: chords(\"<5 1 12 3>*8\".struct(\"<- [- x] [x [x x]] [x [x x]]>*4\")\n    .velocity(0.06)\n    .when(\"<0 0 0 [1 [0 0]]>*4\", x => x.velocity(0.01))\n    .layer(x => x.add(\"0\")).clip(.35), chord2)\n  .s(\"triangle\").room(0.1)\n  .shape(0.99)\n  .pan(rand)\n  .hpf(700)\n\n$: chords(\"<[0 1]!4 <[0 2] [0 1]>!4>*4\".layer(x => x.add(\"-5\")))\n  .gain(1.5).clip(.5).shape(0.3).room(.3)\n\n$: chords(\"<0,1,2,3>\".layer(x => x.add(\"0\")))\n  .s(\"sine\").gain(0.2).room(0.3).shape(0.3).room(.5)\n\n$: stack(\n  cat(\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n    bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n    bd(\"<[bd bd]!4>*4\"),\n    bd(\"<[bd bd] [bd - bd bd] [bd!4]!2>*4\"),\n  ),\n  oh(\"<- oh>*8\").clip(.08),\n  cat(\n    oh(\"<[- -] [- oh] [- -] [- oh]>*4\"),\n    oh(\"<[- -] [- oh] [- -] [- oh]>*4\"),\n    oh(\"<[- -] [- oh] [- -] [- oh]>*4\"),\n    oh(\"<[- -] [- oh] [- -] [- oh]>*4\"),\n    oh(\"<- oh>*8\"),\n    oh(\"<- oh>*8\"),\n    oh(\"<- oh>*8\"),\n    oh(\"<- oh>*8\"),\n  ),\n  s(\"pat1\").slice(16, \"<- - [3 [3 3]*2] 1>*4\")\n    .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n    .gain(.7).shape(0.3).legato(0.7)\n    .hpf(7000),\n\n    // subbass\n  chords(\"<0,1,2,3,4>*4\".layer(x => x.add(\"0\")).struct(\"x*8\").sometimesBy(.3, x=>x.ply(2)).clip(.6), chord)\n  .s(\"sine\").gain(0.08).room(0.3).shape(0.8).room(.5).bpf(400)\n)\n",
       "created_at": 1752769602185,
       "id": "_3OUgtA4R4X5",
-      "collection": "user",
-      "order": 13
+      "collection": "user"
     },
     "Dn1BuQId0l_m": {
       "code": "/*\n@title chorus_2\n@by Nekorobi\n*/\n\nconst mode = \"<root:F3 root:E3 root:A3 [root:G3 <root:C4 root:A3>]>\"\nconst chord = \"<FM7 E7 Amadd9 [Gm7 <C7_2 A7>]>\"\n\n$: n(\"<0>/8\".freq(50)).s(\"crash\").gain(0.35).room(0.6)\n$: noise()\n$: rise()\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-10,-5,0\")))\n  .struct(\"x x [x@2 - x] [- [x]]\").clip(.4)\n  .s(\"epiano\").gain(0.4).shape(0.3).room(.2).size(2)\n  .hpf(350)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"-5\")))\n  .struct(\"x x [x@2 - x] [- [x]]\").clip(.85)\n  .s(\"epiano2\").gain(0.25).shape(0.4).room(.2).size(2).hpf(500)\n\n$: chords(\"<0,1,2,3,4>\".layer(x => x.add(\"0\")))\n  .struct(\"x x [x@2 - x] [- [x]]\").clip(.8)\n  .s(\"epiano2\")\n  .gain(0.3).shape(0.35).room(.2).size(2)\n  .pan(rand)\n\n$: chords(\"<[0 1]!4 <[0 2] [2 4]>!4>*4\".layer(x => x.add(\"-5,0\")))\n  .struct(\"x x [x@2 - x] [- [x]]\").clip(.6)\n  .gain(0.8).clip(.65).shape(0.3).room(.2)\n\n// rhythm\n$: stack(\n  s(\"pat2\").slice(16, \"<- 1>*4\").velocity(0.4).gain(.2).shape(0.9).legato(0.7).bpf(4000),\n  s(\"pat1\").slice(16, \"<- [3 [3 3]*2] - 1>*4\")\n    .when(\"1 1 0 [1 1 1 1]\", x=>x.velocity(0.55))\n    .gain(.7).shape(0.3).legato(0.7)\n    .hpf(7000),\n)\n\n$: cat(\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n  bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n  bd(\"<bd bd [bd - - bd] [- bd]>*4\"),\n  bd(\"<[bd bd] bd [bd - - bd] [- [bd bd]]>*4\"),\n  bd(\"<bd bd [bd - - bd] [- [bd bd]]>*4\"),\n  bd(\"<[bd bd] [bd - bd bd] [bd!4] [bd - bd bd]>*4\"),\n)\n\n$: oh(\"<- oh>*8\")\n\n",
       "created_at": 1753191572244,
       "id": "Dn1BuQId0l_m",
-      "collection": "user",
-      "order": 14
+      "collection": "user"
     }
   },
-  "dndRow": [
+  "codeOrder": [
     {
       "id": "qtIS8yLZmEaP",
-      "rowId": "qtIS8yLZmEaP_1753804707689_zu7b5j"
+      "codeOrderId": "qtIS8yLZmEaP_1754900477077_0_p24mvp"
     },
     {
       "id": "FWaMT6c27KUl",
-      "rowId": "FWaMT6c27KUl_1753601624353_1_dbgz30"
+      "codeOrderId": "FWaMT6c27KUl_1754900477077_1_jbdek3"
     },
     {
       "id": "vjk2XQ9EN0rt",
-      "rowId": "vjk2XQ9EN0rt_1753601624353_2_xcx937"
+      "codeOrderId": "vjk2XQ9EN0rt_1754900477077_2_81x9e3"
     },
     {
       "id": "mGtrtX7wcE1u",
-      "rowId": "mGtrtX7wcE1u_1753601624353_3_fd8fg9"
+      "codeOrderId": "mGtrtX7wcE1u_1754900477077_3_4rengp"
     },
     {
       "id": "LJIKhiFiIDkB",
-      "rowId": "LJIKhiFiIDkB_1753601624353_4_m2xv0d"
+      "codeOrderId": "LJIKhiFiIDkB_1754900477077_4_y839kd"
     },
     {
       "id": "1wsQ3sQlT0KN",
-      "rowId": "1wsQ3sQlT0KN_1753601624353_5_cs11kj"
+      "codeOrderId": "1wsQ3sQlT0KN_1754900477077_5_7o233l"
     },
     {
       "id": "7xeDaJ5IVrYM",
-      "rowId": "7xeDaJ5IVrYM_1753601624353_6_yjoq66"
+      "codeOrderId": "7xeDaJ5IVrYM_1754900477077_6_a1bc1o"
     },
     {
       "id": "002H3fjOLzCK",
-      "rowId": "002H3fjOLzCK_1753601624353_7_2jc99g"
+      "codeOrderId": "002H3fjOLzCK_1754900477077_7_aa45up"
     },
     {
       "id": "iZ5We9gvfCvI",
-      "rowId": "iZ5We9gvfCvI_1753601624353_8_3w3ozl"
+      "codeOrderId": "iZ5We9gvfCvI_1754900477077_8_zu62v4"
     },
     {
       "id": "2bPxylTNNcGn",
-      "rowId": "2bPxylTNNcGn_1753601624353_9_nd4vnc"
+      "codeOrderId": "2bPxylTNNcGn_1754900477077_9_pk93k7"
     },
     {
       "id": "uQbdACYBUKNF",
-      "rowId": "uQbdACYBUKNF_1753601624353_10_o3zsl8"
+      "codeOrderId": "uQbdACYBUKNF_1754900477077_10_g7p2ne"
     },
     {
       "id": "qc7Bbzq--Qmj",
-      "rowId": "qc7Bbzq--Qmj_1753601624353_11_1batjk"
+      "codeOrderId": "qc7Bbzq--Qmj_1754900477077_11_6vilsm"
     },
     {
       "id": "_3OUgtA4R4X5",
-      "rowId": "_3OUgtA4R4X5_1753601624353_12_g7n7hr"
+      "codeOrderId": "_3OUgtA4R4X5_1754900477077_12_xaq5js"
     },
     {
       "id": "7xeDaJ5IVrYM",
-      "rowId": "7xeDaJ5IVrYM_1753801294363_y2377m"
+      "codeOrderId": "7xeDaJ5IVrYM_1754900524708_rnmjye"
     },
     {
       "id": "Dn1BuQId0l_m",
-      "rowId": "Dn1BuQId0l_m_1753601624353_13_asacev"
+      "codeOrderId": "Dn1BuQId0l_m_1754900477077_13_vhb4e5"
     },
     {
       "id": "7xeDaJ5IVrYM",
-      "rowId": "7xeDaJ5IVrYM_1753801302606_y1w69f"
+      "codeOrderId": "7xeDaJ5IVrYM_1754900552989_4f9vso"
     },
     {
       "id": "002H3fjOLzCK",
-      "rowId": "002H3fjOLzCK_1753801306227_8903a1"
+      "codeOrderId": "002H3fjOLzCK_1754900558119_bnv8cm"
     }
   ],
   "repeatCounts": {
-    "FWaMT6c27KUl_1753601624353_1_dbgz30": "",
-    "vjk2XQ9EN0rt_1753601624353_2_xcx937": "",
-    "mGtrtX7wcE1u_1753601624353_3_fd8fg9": "",
-    "LJIKhiFiIDkB_1753601624353_4_m2xv0d": "",
-    "1wsQ3sQlT0KN_1753601624353_5_cs11kj": "",
-    "7xeDaJ5IVrYM_1753601624353_6_yjoq66": "16",
-    "002H3fjOLzCK_1753601624353_7_2jc99g": "",
-    "iZ5We9gvfCvI_1753601624353_8_3w3ozl": "",
-    "2bPxylTNNcGn_1753601624353_9_nd4vnc": "",
-    "uQbdACYBUKNF_1753601624353_10_o3zsl8": "",
-    "qc7Bbzq--Qmj_1753601624353_11_1batjk": "",
-    "_3OUgtA4R4X5_1753601624353_12_g7n7hr": "",
-    "Dn1BuQId0l_m_1753601624353_13_asacev": "",
-    "7xeDaJ5IVrYM_1753801294363_y2377m": "16",
-    "7xeDaJ5IVrYM_1753801302606_y1w69f": "",
-    "002H3fjOLzCK_1753801306227_8903a1": "16",
-    "qtIS8yLZmEaP_1753804707689_zu7b5j": ""
+    "qtIS8yLZmEaP_1754900477077_0_p24mvp": "",
+    "FWaMT6c27KUl_1754900477077_1_jbdek3": "",
+    "vjk2XQ9EN0rt_1754900477077_2_81x9e3": "",
+    "mGtrtX7wcE1u_1754900477077_3_4rengp": "",
+    "LJIKhiFiIDkB_1754900477077_4_y839kd": "",
+    "1wsQ3sQlT0KN_1754900477077_5_7o233l": "",
+    "7xeDaJ5IVrYM_1754900477077_6_a1bc1o": "16",
+    "002H3fjOLzCK_1754900477077_7_aa45up": "",
+    "iZ5We9gvfCvI_1754900477077_8_zu62v4": "",
+    "2bPxylTNNcGn_1754900477077_9_pk93k7": "",
+    "uQbdACYBUKNF_1754900477077_10_g7p2ne": "",
+    "qc7Bbzq--Qmj_1754900477077_11_6vilsm": "",
+    "_3OUgtA4R4X5_1754900477077_12_xaq5js": "",
+    "Dn1BuQId0l_m_1754900477077_13_vhb4e5": "",
+    "7xeDaJ5IVrYM_1754900524708_rnmjye": "16",
+    "7xeDaJ5IVrYM_1754900552989_4f9vso": "",
+    "002H3fjOLzCK_1754900558119_bnv8cm": "16"
   },
   "commonCodes": {
     "ElPVKJJ1iG2p": true
   },
   "bpm": 172,
   "hushBeforeMs": 150,
-  "exportDate": "2025-08-06T17:03:30.421Z"
+  "exportDate": "2025-08-11T08:43:38.960Z"
 }
